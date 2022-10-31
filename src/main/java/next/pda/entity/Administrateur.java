@@ -1,5 +1,10 @@
 package next.pda.entity;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name="admin")
+@PrimaryKeyJoinColumn(name = "user_id")
 public class Administrateur extends Users{
     private String login;
     private String password;
