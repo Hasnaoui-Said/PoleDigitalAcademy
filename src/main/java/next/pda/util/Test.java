@@ -1,4 +1,4 @@
 package next.pda.util;
 
-public class test {
+public class Test {
 }
