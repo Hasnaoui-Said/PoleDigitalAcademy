@@ -5,13 +5,14 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "users")
 
 public class Users implements Serializable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private int Id;
+    private long Id;
     private String lastName;
     private String firstName;
     private String email;
@@ -30,7 +31,7 @@ public class Users implements Serializable {
         this.is_active = is_active;
     }
 
-    public int getId() {
+    public long getId() {
         return Id;
     }
 
