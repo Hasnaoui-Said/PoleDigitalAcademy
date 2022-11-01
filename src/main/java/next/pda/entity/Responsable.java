@@ -10,15 +10,15 @@ import java.util.List;
 @Entity
 @Table
 @PrimaryKeyJoinColumn(name = "user_id")
-public class Responsables extends Personnes implements Serializable {
+public class Responsable extends Personne implements Serializable {
     private TypesResponsable Type;
-    @OneToMany(mappedBy = "responsables")
-    private List<Activities> activity = new ArrayList<Activities>();;
+    @OneToMany(mappedBy = "responsable")
+    private List<Activity> activity = new ArrayList<Activity>();;
 
-    public Responsables() {
+    public Responsable() {
     }
 
-    public Responsables(int id, String lastName, String firstName, String email, String phone, boolean is_active, String domaine, TypesResponsable type, List<Activities> activity) {
+    public Responsable(int id, String lastName, String firstName, String email, String phone, boolean is_active, String domaine, TypesResponsable type, List<Activity> activity) {
         super(id, lastName, firstName, email, phone, is_active, domaine);
         Type = type;
         this.activity = activity;
@@ -32,11 +32,11 @@ public class Responsables extends Personnes implements Serializable {
         Type = type;
     }
 
-    public List<Activities> getActivity() {
+    public List<Activity> getActivity() {
         return activity;
     }
 
-    public void setActivity(List<Activities> activity) {
+    public void setActivity(List<Activity> activity) {
         this.activity = activity;
     }
 

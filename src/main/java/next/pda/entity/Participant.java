@@ -9,15 +9,15 @@ import jakarta.persistence.*;
 @Entity
 @Table
 @PrimaryKeyJoinColumn(name = "user_id")
-public class Participants extends Personnes implements Serializable {
+public class Participant extends Personne implements Serializable {
     private String identifiant;
     private String structure;
     @ManyToMany(mappedBy = "participants",fetch = FetchType.EAGER)
-    private List<Activities> activities =new ArrayList<Activities>();
-    public Participants() {
+    private List<Activity> activities =new ArrayList<Activity>();
+    public Participant() {
     }
 
-    public Participants(int id, String lastName, String firstName, String email, String phone, boolean is_active, String domaine, String identifiant, String structure, List<Activities> activities) {
+    public Participant(int id, String lastName, String firstName, String email, String phone, boolean is_active, String domaine, String identifiant, String structure, List<Activity> activities) {
         super(id, lastName, firstName, email, phone, is_active, domaine);
         this.identifiant = identifiant;
         this.structure = structure;
@@ -40,11 +40,11 @@ public class Participants extends Personnes implements Serializable {
         this.structure = structure;
     }
 
-    public List<Activities> getActivities() {
+    public List<Activity> getActivities() {
         return activities;
     }
 
-    public void setActivities(List<Activities> activities) {
+    public void setActivities(List<Activity> activities) {
         this.activities = activities;
     }
 

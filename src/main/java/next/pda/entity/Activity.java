@@ -10,7 +10,7 @@ import jakarta.persistence.*;
 @Entity
 @Table
 
-public class Activities implements Serializable {
+public class Activity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "activity_id")
@@ -21,22 +21,22 @@ public class Activities implements Serializable {
     private Date dateFin;
     private boolean etat;
     @ManyToOne
-    private Responsables responsables;
+    private Responsable responsable;
     @ManyToMany(mappedBy = "activities",fetch = FetchType.EAGER)
-    private List<Exercices> exercices =new ArrayList<Exercices>();
+    private List<Exercice> exercices =new ArrayList<Exercice>();
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<Participants> participants = new ArrayList<Participants>();
-    public Activities() {
+    private List<Participant> participants = new ArrayList<Participant>();
+    public Activity() {
     }
 
-    public Activities(long id, String title, String description, Date dateDebut, Date dateFin, boolean etat, Responsables responsables, List<Exercices> exercices, List<Participants> participants) {
+    public Activity(long id, String title, String description, Date dateDebut, Date dateFin, boolean etat, Responsable responsable, List<Exercice> exercices, List<Participant> participants) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.etat = etat;
-        this.responsables = responsables;
+        this.responsable = responsable;
         this.exercices = exercices;
         this.participants = participants;
     }
@@ -89,27 +89,27 @@ public class Activities implements Serializable {
         this.etat = etat;
     }
 
-    public Responsables getResponsables() {
-        return responsables;
+    public Responsable getResponsables() {
+        return responsable;
     }
 
-    public void setResponsables(Responsables responsables) {
-        this.responsables = responsables;
+    public void setResponsables(Responsable responsable) {
+        this.responsable = responsable;
     }
 
-    public List<Exercices> getExercices() {
+    public List<Exercice> getExercices() {
         return exercices;
     }
 
-    public void setExercices(List<Exercices> exercices) {
+    public void setExercices(List<Exercice> exercices) {
         this.exercices = exercices;
     }
 
-    public List<Participants> getParticipants() {
+    public List<Participant> getParticipants() {
         return participants;
     }
 
-    public void setParticipants(List<Participants> participants) {
+    public void setParticipants(List<Participant> participants) {
         this.participants = participants;
     }
 
@@ -122,7 +122,7 @@ public class Activities implements Serializable {
                 ", dateDebut=" + dateDebut +
                 ", dateFin=" + dateFin +
                 ", etat=" + etat +
-                ", responsables=" + responsables +
+                ", responsables=" + responsable +
                 ", exercices=" + exercices +
                 ", participants=" + participants +
                 '}';

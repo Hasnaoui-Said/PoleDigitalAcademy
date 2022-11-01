@@ -10,7 +10,7 @@ import next.pda.enu.StatusExercice;
 
 @Entity
 @Table
-public class Exercices implements Serializable {
+public class Exercice implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -21,11 +21,11 @@ public class Exercices implements Serializable {
     private StatusExercice status;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<Activities> activities = new ArrayList<Activities>();
-    public Exercices() {
+    private List<Activity> activities = new ArrayList<Activity>();
+    public Exercice() {
     }
 
-    public Exercices(long exercice_id, String annee, Date dateDebut, Date dateFin, StatusExercice status, List<Activities> activities) {
+    public Exercice(long exercice_id, String annee, Date dateDebut, Date dateFin, StatusExercice status, List<Activity> activities) {
         this.exercice_id = exercice_id;
         this.annee = annee;
         this.dateDebut = dateDebut;
@@ -74,11 +74,11 @@ public class Exercices implements Serializable {
         this.status = status;
     }
 
-    public List<Activities> getActivities() {
+    public List<Activity> getActivities() {
         return activities;
     }
 
-    public void setActivities(List<Activities> activities) {
+    public void setActivities(List<Activity> activities) {
         this.activities = activities;
     }
 

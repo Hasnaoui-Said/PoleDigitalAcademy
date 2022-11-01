@@ -7,15 +7,15 @@ import java.io.Serializable;
 @Entity
 @Table(name="admin")
 @PrimaryKeyJoinColumn(name = "user_id")
-public class Administrateurs extends Users implements Serializable {
+public class Administrateur extends User implements Serializable {
     private String login;
     private String password;
 
-    public Administrateurs() {
+    public Administrateur() {
 
     }
 
-    public Administrateurs(int id, String lastName, String firstName, String email, String phone, boolean is_active, String login, String password) {
+    public Administrateur(int id, String lastName, String firstName, String email, String phone, boolean is_active, String login, String password) {
         super(id, lastName, firstName, email, phone, is_active);
         this.login = login;
         this.password = password;

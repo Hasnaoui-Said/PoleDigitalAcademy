@@ -5,13 +5,13 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 @Entity
 @Table
-public class Personnes extends Users implements Serializable {
+public class Personne extends User implements Serializable {
     private String Domaine;
 
-    public Personnes() {
+    public Personne() {
     }
 
-    public Personnes(int id, String lastName, String firstName, String email, String phone, boolean is_active, String domaine) {
+    public Personne(int id, String lastName, String firstName, String email, String phone, boolean is_active, String domaine) {
         super(id, lastName, firstName, email, phone, is_active);
         Domaine = domaine;
     }

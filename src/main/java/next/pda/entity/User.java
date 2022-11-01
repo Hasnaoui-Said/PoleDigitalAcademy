@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "users")
 
-public class Users implements Serializable {
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -19,10 +19,10 @@ public class Users implements Serializable {
     private String phone;
     private boolean is_active;
 
-    public Users() {
+    public User() {
     }
 
-    public Users(int id, String lastName, String firstName, String email, String phone, boolean is_active) {
+    public User(int id, String lastName, String firstName, String email, String phone, boolean is_active) {
         Id = id;
         this.lastName = lastName;
         this.firstName = firstName;
