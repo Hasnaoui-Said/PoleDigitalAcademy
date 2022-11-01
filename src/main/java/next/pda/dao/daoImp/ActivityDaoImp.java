@@ -1,15 +1,12 @@
 package next.pda.dao.daoImp;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.*;
 import next.pda.dao.ActivitiesDao;
 import next.pda.entity.Activity;
 
 import java.util.List;
 
-public class ActivityDaoImp implements ActivitiesDao {
+public class ActivityDaoImp implements ActivitiesDao{
     private EntityManager entityManager;
 
     public ActivityDaoImp() {
@@ -51,7 +48,8 @@ public class ActivityDaoImp implements ActivitiesDao {
 
     @Override
     public List<Activity> getAllActivities(Activity activity) {
-        return null;
+        Query query = entityManager.createQuery("SELECT a FROM Activity a");
+        return query.getResultList();
     }
 
     @Override
