@@ -16,11 +16,14 @@ public class Exercice implements Serializable {
     @Column
     private long exercice_id;
     private String annee;
+    @Temporal(value = TemporalType.DATE)
     private Date dateDebut;
+    @Temporal(value = TemporalType.DATE)
     private Date dateFin;
+    @Enumerated(value = EnumType.STRING)
     private StatusExercice status;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "exercices",fetch = FetchType.EAGER)
     private List<Activity> activities = new ArrayList<Activity>();
     public Exercice() {
     }
@@ -82,5 +85,14 @@ public class Exercice implements Serializable {
         this.activities = activities;
     }
 
-
+    @Override
+    public String toString() {
+        return "Exercice{" +
+                "exercice_id=" + exercice_id +
+                ", annee='" + annee + '\'' +
+                ", dateDebut=" + dateDebut +
+                ", dateFin=" + dateFin +
+                ", status=" + status+
+                '}';
+    }
 }

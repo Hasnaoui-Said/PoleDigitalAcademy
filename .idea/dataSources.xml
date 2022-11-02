@@ -1,20 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="pda_data_564@localhost" uuid="35e7984d-a6e8-4aea-8dc9-6d07eaf9696b">
+    <data-source source="LOCAL" name="pda_data_564@localhost" uuid="302bba11-ea19-4f7f-a4a0-2c8b1f4e0dee">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/pda_data_564</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="pda_data/Hibernate" uuid="536845f1-00ea-4e9c-92ec-606326524358">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <imported>true</imported>
-      <remarks>Hibernate
-
-C:/Users/Youcode/IdeaProjects/PoleDigitalAcademy/src/main/resources/META-INF/persistence.xml</remarks>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/pda_data_564</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
