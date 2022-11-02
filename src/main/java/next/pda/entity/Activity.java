@@ -17,12 +17,14 @@ public class Activity implements Serializable {
     private long id;
     private String title;
     private String description;
+    @Temporal(value=TemporalType.DATE)
     private Date dateDebut;
+    @Temporal(value=TemporalType.DATE)
     private Date dateFin;
     private boolean etat;
     @ManyToOne
     private Responsable responsable;
-    @ManyToMany(mappedBy = "activities",fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Exercice> exercices =new ArrayList<Exercice>();
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Participant> participants = new ArrayList<Participant>();

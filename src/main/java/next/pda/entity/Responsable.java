@@ -11,6 +11,7 @@ import java.util.List;
 @Table
 @PrimaryKeyJoinColumn(name = "user_id")
 public class Responsable extends Personne implements Serializable {
+    @Enumerated(value = EnumType.STRING)
     private TypesResponsable Type;
     @OneToMany(mappedBy = "responsable")
     private List<Activity> activity = new ArrayList<Activity>();;
