@@ -2,54 +2,54 @@ package next.pda.dao.daoImp;
 
 import jakarta.persistence.*;
 import next.pda.dao.GenericDao;
-import next.pda.entity.Activity;
+import next.pda.entity.Responsable;
 
 import java.util.List;
 
-public class ActivityDaoImp implements GenericDao<Activity> {
+public class ResponsableDaoImp implements GenericDao<Responsable> {
     private EntityManager entityManager;
-
-    public ActivityDaoImp() {
+    public ResponsableDaoImp() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pda_data");
-        this.entityManager = entityManagerFactory.createEntityManager();
+        entityManager = entityManagerFactory.createEntityManager();
     }
 
     @Override
-    public void add(Activity activity) {
+    public void add(Responsable responsable) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            entityManager.persist(activity);
+            entityManager.persist(responsable);
             transaction.commit();
         }catch (Exception e){
             transaction.rollback();
             e.printStackTrace();
         }
+
     }
 
     @Override
-    public Activity update(Activity activity) {
+    public Responsable update(Responsable responsable) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         try {
-            entityManager.merge(activity);
+            entityManager.merge(responsable);
             transaction.commit();
         }catch (Exception e){
             transaction.rollback();
             e.printStackTrace();
         }
-        return activity;
+        return responsable;
     }
 
     @Override
-    public List<Activity> getAll(Activity activity) {
-        Query query = entityManager.createQuery("SELECT a FROM Activity a");
+    public List<Responsable> getAll(Responsable responsable) {
+        Query query = entityManager.createQuery("SELECT r FROM  Responsable  r");
         return query.getResultList();
     }
 
     @Override
-    public Activity getOne(long Id) {
-        Activity activity = entityManager.find(Activity.class,Id);
-        return activity;
+    public Responsable getOne(long Id) {
+        Responsable responsable = entityManager.find(Responsable.class,Id);
+        return responsable;
     }
 }
