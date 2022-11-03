@@ -12,7 +12,7 @@ import jakarta.persistence.*;
 public class Participant extends Personne implements Serializable {
     private String identifiant;
     private String structure;
-    @ManyToMany(mappedBy = "participants",fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Activity> activities =new ArrayList<Activity>();
     public Participant() {
     }

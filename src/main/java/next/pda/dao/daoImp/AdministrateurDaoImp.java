@@ -2,56 +2,54 @@ package next.pda.dao.daoImp;
 
 import jakarta.persistence.*;
 import next.pda.dao.GenericDao;
-import next.pda.entity.Exercice;
+import next.pda.entity.Administrateur;
 
 import java.util.List;
 
-public class ExerciceDaoImp implements GenericDao<Exercice> {
+public class AdministrateurDaoImp implements GenericDao<Administrateur> {
+    private EntityManager entityManager ;
 
-    private EntityManager entityManager;
-
-    public ExerciceDaoImp() {
+    public AdministrateurDaoImp() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pda_data");
-        this.entityManager = entityManagerFactory.createEntityManager();
+        entityManager = entityManagerFactory.createEntityManager();
     }
 
     @Override
-    public void add(Exercice exercice) {
+    public void add(Administrateur administrateur) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        try{
-            entityManager.persist(exercice);
+        try {
+            entityManager.persist(administrateur);
             transaction.commit();
         }catch (Exception e){
             transaction.rollback();
             e.printStackTrace();
         }
-
     }
 
     @Override
-    public Exercice update(Exercice exercice) {
+    public Administrateur update(Administrateur administrateur) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
-        try{
-            entityManager.merge(exercice);
+        try {
+            entityManager.persist(administrateur);
             transaction.commit();
         }catch (Exception e){
             transaction.rollback();
             e.printStackTrace();
         }
-        return exercice;
+        return administrateur;
     }
 
     @Override
-    public List<Exercice> getAll() {
-        Query query = entityManager.createQuery("SELECT e FROM  Exercice e");
+    public List<Administrateur> getAll() {
+        Query query = entityManager.createQuery("SELECT a FROM Administrateur a");
         return query.getResultList();
     }
 
     @Override
-    public Exercice getOne(long Id) {
-        Exercice exercice = entityManager.find(Exercice.class,Id);
-        return exercice;
+    public Administrateur getOne(long Id) {
+        Administrateur administrateur = entityManager.find(Administrateur.class,Id);
+        return administrateur;
     }
 }

@@ -26,7 +26,7 @@ public class Activity implements Serializable {
     private Responsable responsable;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Exercice> exercices =new ArrayList<Exercice>();
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "activities",fetch = FetchType.EAGER)
     private List<Participant> participants = new ArrayList<Participant>();
     public Activity() {
     }

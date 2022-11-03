@@ -42,7 +42,7 @@ public class ResponsableDaoImp implements GenericDao<Responsable> {
     }
 
     @Override
-    public List<Responsable> getAll(Responsable responsable) {
+    public List<Responsable> getAll() {
         Query query = entityManager.createQuery("SELECT r FROM  Responsable  r");
         return query.getResultList();
     }

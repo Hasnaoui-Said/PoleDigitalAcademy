@@ -43,7 +43,7 @@ public class ParticipantDaoImp implements GenericDao<Participant> {
     }
 
     @Override
-    public List<Participant> getAll(Participant participant) {
+    public List<Participant> getAll() {
         Query query = entityManager.createQuery("SELECT e FROM  Participant e");
         return query.getResultList();
     }
