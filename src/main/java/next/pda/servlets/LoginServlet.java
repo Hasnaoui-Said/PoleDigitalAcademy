@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import next.pda.entity.User;
 
 import java.io.IOException;
@@ -23,8 +24,12 @@ public class LoginServlet extends HttpServlet {
 
         User user = new User();
         //user = userService.getUserByUsernameAndPassword(username, password)
-        if ( 1 == 1) {
-            request.getSession().setAttribute("user", user);
+        if ( 1 == 1 ) {
+            user.setEmail("admin@gmail.com");
+            user.setFirstName("said");
+            user.setLastName("hasnaoui");
+            HttpSession maSession = request.getSession();
+            maSession.setAttribute("userSession", user);
             response.sendRedirect("home");
         } else {
             String message = "Unknown username or password. Please retry.";
