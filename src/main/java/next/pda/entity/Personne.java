@@ -1,6 +1,7 @@
 package next.pda.entity;
 
 import jakarta.persistence.*;
+import next.pda.enu.Roles;
 
 import java.io.Serializable;
 @Entity
@@ -11,8 +12,8 @@ public class Personne extends User implements Serializable {
     public Personne() {
     }
 
-    public Personne(int id, String lastName, String firstName, String email, String phone, boolean is_active, String domaine) {
-        super(id, lastName, firstName, email, phone, is_active);
+    public Personne(String lastName, String firstName, String email, String phone, Roles role, boolean is_active, String domaine) {
+        super(lastName, firstName, email, phone, role, is_active);
         Domaine = domaine;
     }
 

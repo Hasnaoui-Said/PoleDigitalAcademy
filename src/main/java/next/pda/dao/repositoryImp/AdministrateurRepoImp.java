@@ -1,4 +1,4 @@
-package next.pda.dao.repository;
+package next.pda.dao.repositoryImp;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;

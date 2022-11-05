@@ -23,18 +23,17 @@ public class Exercice implements Serializable {
     @Enumerated(value = EnumType.STRING)
     private StatusExercice status;
 
-    @ManyToMany(mappedBy = "exercices",fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "exercices",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private List<Activity> activities = new ArrayList<Activity>();
     public Exercice() {
     }
 
-    public Exercice(long exercice_id, String annee, Date dateDebut, Date dateFin, StatusExercice status, List<Activity> activities) {
-        this.exercice_id = exercice_id;
+    public Exercice(String annee, Date dateDebut, Date dateFin, StatusExercice status, Activity activities) {
         this.annee = annee;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.status = status;
-        this.activities = activities;
+        this.activities.add(activities);
     }
 
     public long getExercice_id() {

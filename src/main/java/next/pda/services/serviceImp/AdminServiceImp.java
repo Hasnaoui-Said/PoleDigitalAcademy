@@ -3,10 +3,9 @@ package next.pda.services.serviceImp;
 import next.pda.dao.AdminRepository;
 import next.pda.dao.GenericDao;
 import next.pda.dao.daoImp.AdministrateurDaoImp;
-import next.pda.dao.repository.AdministrateurRepoImp;
+import next.pda.dao.repositoryImp.AdministrateurRepoImp;
 import next.pda.entity.Administrateur;
 import next.pda.services.AdminService;
-import next.pda.services.GenericService;
 
 import java.util.List;
 

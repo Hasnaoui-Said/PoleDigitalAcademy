@@ -1,6 +1,7 @@
 package next.pda.entity;
 
 import jakarta.persistence.*;
+import next.pda.enu.Roles;
 
 import java.io.Serializable;
 
@@ -15,8 +16,8 @@ public class Administrateur extends User implements Serializable {
 
     }
 
-    public Administrateur(int id, String lastName, String firstName, String email, String phone, boolean is_active, String login, String password) {
-        super(id, lastName, firstName, email, phone, is_active);
+    public Administrateur(String lastName, String firstName, String email, String phone, Roles role, boolean is_active, String login, String password) {
+        super(lastName, firstName, email, phone, role, is_active);
         this.login = login;
         this.password = password;
     }

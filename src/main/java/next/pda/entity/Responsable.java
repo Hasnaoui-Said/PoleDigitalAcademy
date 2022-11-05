@@ -1,6 +1,7 @@
 package next.pda.entity;
 
 import jakarta.persistence.*;
+import next.pda.enu.Roles;
 import next.pda.enu.TypesResponsable;
 
 import java.io.Serializable;
@@ -19,10 +20,10 @@ public class Responsable extends Personne implements Serializable {
     public Responsable() {
     }
 
-    public Responsable(int id, String lastName, String firstName, String email, String phone, boolean is_active, String domaine, TypesResponsable type, List<Activity> activity) {
-        super(id, lastName, firstName, email, phone, is_active, domaine);
+    public Responsable(String lastName, String firstName, String email, String phone, Roles role, boolean is_active, String domaine, TypesResponsable type, Activity activity) {
+        super(lastName, firstName, email, phone, role, is_active, domaine);
         Type = type;
-        this.activity = activity;
+        this.activity.add(activity);
     }
 
     public TypesResponsable getType() {
@@ -45,7 +46,6 @@ public class Responsable extends Personne implements Serializable {
     public String toString() {
         return "Responsables{" +
                 "Type=" + Type +
-                ", activity=" + activity +
                 '}';
     }
 }

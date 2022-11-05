@@ -2,12 +2,15 @@ package next.pda.dao.daoImp;
 
 import jakarta.persistence.*;
 import next.pda.dao.GenericDao;
+import next.pda.dao.ParticipantRepository;
 import next.pda.entity.Activity;
 import next.pda.entity.Participant;
+import next.pda.enu.Genre;
 
+import java.util.Date;
 import java.util.List;
 
-public class ParticipantDaoImp implements GenericDao<Participant> {
+public class ParticipantDaoImp implements GenericDao<Participant>, ParticipantRepository {
 
     private EntityManager entityManager;
     public ParticipantDaoImp() {
@@ -52,5 +55,17 @@ public class ParticipantDaoImp implements GenericDao<Participant> {
     public Participant getOne(long Id) {
         Participant participant = entityManager.find(Participant.class,Id);
         return participant;
+    }
+    @Override
+    public List<Participant> getAllByGenre(String genre) {
+        Query query = entityManager.createQuery("SELECT p FROM Participant p WHERE p.genre =:g");
+        query.setParameter("g",Genre.valueOf(genre.toUpperCase()));
+        return query.getResultList();
+    }
+
+
+    @Override
+    public List<Participant> getAllByDate(Date date) {
+        return null;
     }
 }
