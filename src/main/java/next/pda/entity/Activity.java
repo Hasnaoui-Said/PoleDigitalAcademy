@@ -89,6 +89,9 @@ public class Activity implements Serializable {
     public void setEtat(boolean etat) {
         this.etat = etat;
     }
+    public boolean getEtat() {
+        return this.etat;
+    }
 
     public Responsable getResponsables() {
         return responsable;

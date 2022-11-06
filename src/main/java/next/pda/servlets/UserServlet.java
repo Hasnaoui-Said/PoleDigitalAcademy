@@ -1,16 +1,19 @@
+
 package next.pda.servlets;
 
-import jakarta.servlet.*;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "HomeServlet", value = "/pda/v1/home")
-public class HomeServlet extends HttpServlet {
+@WebServlet(name = "UserServlet", value = "/pda/v1/users")
+public class UserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("active", "home");
+        request.setAttribute("active", "users");
         getServletContext().getRequestDispatcher("/pda/home.jsp").forward(request, response);
     }
 
