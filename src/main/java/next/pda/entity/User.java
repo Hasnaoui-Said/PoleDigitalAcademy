@@ -1,6 +1,7 @@
 package next.pda.entity;
 
 import jakarta.persistence.*;
+import next.pda.enu.Roles;
 
 import java.io.Serializable;
 
@@ -17,17 +18,19 @@ public class User implements Serializable {
     private String firstName;
     private String email;
     private String phone;
+    @Enumerated(value = EnumType.STRING)
+    private Roles role;
     private boolean is_active;
 
     public User() {
     }
 
-    public User(int id, String lastName, String firstName, String email, String phone, boolean is_active) {
-        Id = id;
+    public User(String lastName, String firstName, String email, String phone, Roles role, boolean is_active) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.email = email;
         this.phone = phone;
+        this.role = role;
         this.is_active = is_active;
     }
 
@@ -69,6 +72,14 @@ public class User implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Roles getRole() {
+        return role;
+    }
+
+    public void setRole(Roles role) {
+        this.role = role;
     }
 
     public boolean isIs_active() {

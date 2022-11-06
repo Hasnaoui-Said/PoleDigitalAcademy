@@ -1,35 +1,40 @@
-import next.pda.entity.Activity;
-import next.pda.entity.Administrateur;
-import next.pda.entity.Participant;
+import next.pda.entity.*;
+import next.pda.enu.Genre;
+import next.pda.enu.Roles;
+import next.pda.enu.TypesResponsable;
 import next.pda.services.AdminService;
-import next.pda.services.serviceImp.ActivityServiceImp;
+import next.pda.services.ParticipantService;
+import next.pda.services.serviceImp.*;
 import next.pda.services.GenericService;
-import next.pda.services.serviceImp.AdminServiceImp;
-import next.pda.services.serviceImp.ParticipantServiceImp;
+
+import java.util.List;
 
 public class main {
     public static void main(String[] args) {
-        String lastName="salim";
-        String firstName="ahmed";
-        String email ="ahmed@gmail.com";
+        String lastName="elyagoubi";
+        String firstName="raouya";
+        String email ="raouya@gmail.com";
         String phone ="123456789";
         boolean isActive= true;
-        String login ="ahmed_salim01";
-        String password ="azerty";
-        Administrateur administrateur = new Administrateur();
-        administrateur.setFirstName(firstName);
-        administrateur.setLastName(lastName);
-        administrateur.setEmail(email);
-        administrateur.setPhone(phone);
-        administrateur.setIs_active(isActive);
-        administrateur.setLogin(login);
-        administrateur.setPassword(password);
+        String role = "Participant";
+        String domaine ="IT";
+        String genre ="male";
+        String identifiant="raouya_elya";
+        String structur ="structure";
+        Responsable responsable = new Responsable();
+        Activity activity = new Activity();
+        Exercice exercice = new Exercice();
+        Participant participant = new Participant();
         AdminService  adminService = new AdminServiceImp();
-        Administrateur test = adminService.loginByEmailAndPassword(login,password);
-        if(test!=null){
-            System.out.println("success");
-        }else{
-            System.out.println("information inccorect!");
-        }
+        GenericService<Activity> activityService = new ActivityServiceImp();
+        GenericService<Responsable> responsableService = new ResponsableServiceImp();
+        GenericService<Exercice> exerciceService = new ExerciceServiceImp();
+        ParticipantService participantService = new ParticipantServiceImp();
+        String acti ="Activité3";
+
+
+
+
+
     }
 }

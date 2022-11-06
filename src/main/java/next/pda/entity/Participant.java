@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.*;
+import next.pda.enu.Genre;
+import next.pda.enu.Roles;
 
 @Entity
 @Table
@@ -12,16 +14,19 @@ import jakarta.persistence.*;
 public class Participant extends Personne implements Serializable {
     private String identifiant;
     private String structure;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @Enumerated(value = EnumType.STRING)
+    private Genre genre;
+    @ManyToMany(mappedBy = "participants",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Activity> activities =new ArrayList<Activity>();
     public Participant() {
     }
 
-    public Participant(int id, String lastName, String firstName, String email, String phone, boolean is_active, String domaine, String identifiant, String structure, List<Activity> activities) {
-        super(id, lastName, firstName, email, phone, is_active, domaine);
+    public Participant(String lastName, String firstName, String email, String phone, Roles role, boolean is_active, String domaine, String identifiant, String structure, Genre genre, Activity activities) {
+        super(lastName, firstName, email, phone, role, is_active, domaine);
         this.identifiant = identifiant;
         this.structure = structure;
-        this.activities = activities;
+        this.genre = genre;
+        this.activities.add(activities);
     }
 
     public String getIdentifiant() {
@@ -48,12 +53,19 @@ public class Participant extends Personne implements Serializable {
         this.activities = activities;
     }
 
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
     @Override
     public String toString() {
         return "Participants{" +
                 "identifiant='" + identifiant + '\'' +
                 ", structure='" + structure + '\'' +
-                ", activities=" + activities +
                 '}';
     }
 }

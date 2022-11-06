@@ -24,23 +24,22 @@ public class Activity implements Serializable {
     private boolean etat;
     @ManyToOne
     private Responsable responsable;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Exercice> exercices =new ArrayList<Exercice>();
-    @ManyToMany(mappedBy = "activities",fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Participant> participants = new ArrayList<Participant>();
     public Activity() {
     }
 
-    public Activity(long id, String title, String description, Date dateDebut, Date dateFin, boolean etat, Responsable responsable, List<Exercice> exercices, List<Participant> participants) {
-        this.id = id;
+    public Activity(String title, String description, Date dateDebut, Date dateFin, boolean etat, Responsable responsable, Exercice exercices, Participant participants) {
         this.title = title;
         this.description = description;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.etat = etat;
         this.responsable = responsable;
-        this.exercices = exercices;
-        this.participants = participants;
+        this.exercices.add(exercices);
+        this.participants.add(participants);
     }
 
     public long getId() {
@@ -103,16 +102,16 @@ public class Activity implements Serializable {
         return exercices;
     }
 
-    public void setExercices(List<Exercice> exercices) {
-        this.exercices = exercices;
+    public void setExercices(Exercice exercices) {
+        this.exercices.add(exercices);
     }
 
     public List<Participant> getParticipants() {
         return participants;
     }
 
-    public void setParticipants(List<Participant> participants) {
-        this.participants = participants;
+    public void setParticipants(Participant participants) {
+        this.participants.add(participants);
     }
 
     @Override
