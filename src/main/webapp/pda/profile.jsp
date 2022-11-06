@@ -1,3 +1,3 @@
 <div>
-    <p>Hello home</p>
+    <p>Hello profile</p>
 </div>

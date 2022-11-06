@@ -9,11 +9,11 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "ActivityServlet", value = "/pda/v1/activity")
-public class ProfileServlet extends HttpServlet {
+@WebServlet(name = "UserServlet", value = "/pda/v1/users")
+public class UserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("active", "activity");
+        request.setAttribute("active", "users");
         getServletContext().getRequestDispatcher("/pda/home.jsp").forward(request, response);
     }
 
