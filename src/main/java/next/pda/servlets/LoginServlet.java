@@ -21,18 +21,13 @@ public class LoginServlet extends HttpServlet {
     private AdminService adminService =  new AdminServiceImp();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession maSession = request.getSession();
+        Administrateur administrateur = (Administrateur)maSession.getAttribute("userSession");
+        if (administrateur.getLogin() != null){
+            response.sendRedirect("home");
+            return;
+        }
         getServletContext().getRequestDispatcher("/pda/login.jsp").forward(request, response);
-
-//        Administrateur user = new Administrateur();
-//        user.setLogin("admin@gmail.com");
-//        user.setEmail("admin@gmail.com");
-//        user.setFirstName("said");
-//        user.setLastName("hasnaoui");
-//        user.setPassword("admin");
-//        user.setIs_active(true);
-//        user.setPhone("+212656453423");
-//        user.setRole(Roles.ADMIN);
-//        this.adminService.add(user);
 
     }
 
@@ -43,8 +38,8 @@ public class LoginServlet extends HttpServlet {
 
         Administrateur user = this.adminService.loginByEmailAndPassword(username, password);
         if ( user != null ) {
-            HttpSession maSession = request.getSession();
             user.setPassword("");
+            HttpSession maSession = request.getSession();
             maSession.setAttribute("userSession", user);
 
             maSession.setAttribute("message", "Connected successfully.");
