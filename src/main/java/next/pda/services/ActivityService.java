@@ -1,5 +1,15 @@
 package next.pda.services;
 
-public class ActivityService {
+import next.pda.entity.Activity;
 
+import java.util.List;
+
+public interface ActivityService {
+    public void add(Activity activity);
+    public Activity update(Activity activity);
+
+    public List<Activity> getAll();
+
+    public Activity getOneById(long id);
+    public Activity getOneByName(String name);
 }

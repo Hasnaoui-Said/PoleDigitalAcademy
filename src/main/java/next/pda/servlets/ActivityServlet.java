@@ -4,37 +4,32 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import next.pda.entity.Activity;
+import next.pda.services.ActivityService;
+import next.pda.services.serviceImp.ActivityServiceImp;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import java.util.List;
 
 @WebServlet(name = "ActivityServlet", value = "/pda/v1/activity")
 public class ActivityServlet extends HttpServlet {
+    private ActivityService activityService = new ActivityServiceImp();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Activity> activities = new ArrayList<>();
-        Activity activity1 = new Activity();
-        Activity activity2 = new Activity();
-        activity1.setId(1);
-        activity1.setTitle("Act1");
-        activity1.setEtat(true);
-        activity1.setDateDebut(new Date());
-        activity1.setDateFin(new Date());
-        activity1.setDescription("description 1");
-
-        activity2.setId(2);
-        activity2.setTitle("Act2");
-        activity2.setEtat(false);
-        activity2.setDateDebut(new Date());
-        activity2.setDateFin(new Date());
-        activity2.setDescription("description 2");
-        // add to list
-        activities.add(activity1);
-        activities.add(activity2);
+        if (request.getParameter("delete") != null){
+            int id = Integer.parseInt(request.getParameter("delete"));
+            //this.activityService.deleteById(id);
+        }
+        if (request.getParameter("edit") != null){
+            int id = Integer.parseInt(request.getParameter("edit"));
+            Activity activity = this.activityService.getOneById(id);
+            System.out.println(activity.toString());
+            request.setAttribute("edit", id);
+            request.setAttribute("activity", activity);
+        }
+        List<Activity> activities = this.activityService.getAll();
         request.setAttribute("activities", activities);
         // send to home page
         request.setAttribute("active", "activity");
@@ -43,19 +38,36 @@ public class ActivityServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            Activity activity = this.createActivity(request);
+            HttpSession maSession = request.getSession();
+            if (request.getParameter("update") != null){
+                int id = Integer.parseInt(request.getParameter("id"));
+                activity.setId(id);
+                this.activityService.update(activity);
+                maSession.setAttribute("message", "Activity updated successfully.");
+                maSession.setAttribute("className", "info");
+            }else{
+                System.out.println("save");
+                this.activityService.add(activity);
+                maSession.setAttribute("message", "Activity saved successfully.");
+                maSession.setAttribute("className", "success");
+            }
+        } catch (ParseException e) {
+            request.setAttribute("parseException", "Error! parseException: "+ e.getMessage());
+        }
+        response.sendRedirect("activity");
+    }
+
+    private Activity createActivity(HttpServletRequest request) throws ParseException {
+
         Activity activity = new Activity();
-        String title = request.getParameter("title");
-        String description = request.getParameter("description");
-        String dateDebut = request.getParameter("dateDebut");
-        String dateFin = request.getParameter("dateFin");
-        String responsableId = request.getParameter("responsable");
-        String exercises = Arrays.toString(request.getParameterValues("exercise"));
-        System.out.println("------------------------------");
-        System.out.println(title);
-        System.out.println(description);
-        System.out.println(dateDebut);
-        System.out.println(dateFin);
-        System.out.println(responsableId);
-        System.out.println(exercises);
+        activity.setTitle(request.getParameter("title"));
+        activity.setDescription(request.getParameter("description"));
+        activity.setDateFin(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("dateDebut")));
+        activity.setDateDebut(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("dateFin")));
+        //activity.setTitle(request.getParameter("responsable");
+        //String exercises = Arrays.toString(request.getParameterValues("exercise"));
+        return activity;
     }
 }

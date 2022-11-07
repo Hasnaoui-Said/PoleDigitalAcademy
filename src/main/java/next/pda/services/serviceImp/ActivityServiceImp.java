@@ -3,11 +3,12 @@ package next.pda.services.serviceImp;
 import next.pda.dao.GenericDao;
 import next.pda.dao.daoImp.ActivityDaoImp;
 import next.pda.entity.Activity;
+import next.pda.services.ActivityService;
 import next.pda.services.GenericService;
 
 import java.util.List;
 
-public class ActivityServiceImp implements GenericService<Activity> {
+public class ActivityServiceImp implements ActivityService, GenericService<Activity> {
     private GenericDao<Activity> activityDao = new ActivityDaoImp();
 
     public ActivityServiceImp() {

@@ -51,6 +51,7 @@ public class ParticipantDaoImp implements GenericDao<Participant>, ParticipantRe
         return query.getResultList();
     }
 
+
     @Override
     public Participant getOne(long Id) {
         Participant participant = entityManager.find(Participant.class,Id);
