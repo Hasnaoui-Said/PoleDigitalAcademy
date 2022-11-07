@@ -1,7 +1,16 @@
+<%
+    HttpSession maSession = request.getSession();
+    Administrateur administrateur = (Administrateur)maSession.getAttribute("userSession");
+    if (administrateur.getLogin() == null){
+        response.sendRedirect("login");
+        return;
+    }
+%>
+
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Arrays" %>
+<%@ page import="next.pda.entity.Administrateur" %>
 <%@include file="header.jsp" %>
-<jsp:useBean id="user" class="next.pda.entity.Administrateur" scope="session"></jsp:useBean>
 
 <%
     String message = (String)session.getAttribute("message");
