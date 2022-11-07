@@ -1,6 +1,6 @@
 
-<jsp:useBean id="userSession" class="next.pda.entity.User" scope="session"></jsp:useBean>
 
+<jsp:useBean id="userSession" class="next.pda.entity.Administrateur" scope="session"></jsp:useBean>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <ul class="container">
         <a class="navbar-brand" href="home">PDA</a>
@@ -21,7 +21,7 @@
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="profile"><%= userSession.getFirstName() %></a>
+                    <a class="nav-link" href="profile"><%= userSession.getEmail() %></a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="logout?u=said">LogOut</a>

@@ -1,5 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<% String username = request.getAttribute("username") == null ? "" : request.getAttribute("username").toString();%>
+
+<jsp:useBean id="userSession" class="next.pda.entity.Administrateur" scope="session"></jsp:useBean>
+<%
+    String username = request.getAttribute("username") == null ? "" : request.getAttribute("username").toString();
+%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
