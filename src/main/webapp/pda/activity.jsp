@@ -1,25 +1,23 @@
+<%@ page import="java.text.SimpleDateFormat" %>
 <jsp:useBean id="activities" type="java.util.ArrayList<next.pda.entity.Activity>" scope="request"></jsp:useBean>
-
 
 <div class="container">
     <div class="d-flex justify-content-end align-items-center m-4">
         <div>
-            <button type="button" onclick="createActivity()" class="btn btn-primary" id="createActivity">
+            <button type="button" onclick="createActivity()" class="btn btn-primary"
+                    <%= (request.getAttribute("edit") != null)? "disabled": ""  %> id="createActivity">
                 Create Activity
             </button>
         </div>
     </div>
+
+    <% if (request.getAttribute("edit") != null) { %>
+        <%@include file="editActivity.jsp" %>
+    <% } else {%>
     <div class="" id="formCreateActivity" style="display: none">
         <div class="card p-4 mb-3">
             <div class="modal-body">
                 <form action="activity" method="post">
-                    <div class="row">
-                        <div class="col-6 mb-3 d-none">
-                            <label for="id" class="form-label">id</label>
-                            <input type="text" class="form-control" id="id" name="id" aria-describedby="idHelp">
-                            <div id="idHelps" class="form-text d-none">error</div>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-6 mb-3">
                             <label for="title" class="form-label">Title</label>
@@ -66,12 +64,13 @@
                         </div>
                     </div>
                     <div class="modal-footer mb-0">
-                        <button type="submit" name="save" class="btn btn-primary">Save</button>
+                        <button type="submit" name="update" class="btn btn-primary">Update</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+    <% }%>
     <div class="d-flex justify-content-end align-items-center gap-2 mx-4">
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -112,17 +111,13 @@
                         <td><%=activities.get(i).getId()%></td>
                         <td><%=activities.get(i).getTitle()%></td>
                         <td><%=activities.get(i).getDescription()%></td>
-                        <td><%=activities.get(i).getDateDebut()%></td>
+                        <td><%=new SimpleDateFormat("yyyy-MM-dd").format(activities.get(i).getDateDebut())%></td>
                         <td><%=activities.get(i).getDateFin()%></td>
                         <td><%=activities.get(i).getEtat()%></td>
-                        <td class="d-flex gap-1 justify-content-between" id="testtt" colspan="2">
-                                <div class="nav-item">
-                                    <button class="btn edit-btn btn-white p-0 m-0" id="edit<%=activities.get(i).getId()%>">
-                                        <span data-id="<%=activities.get(i).getId()%>" class="material-symbols-outlined">Edit</span>
-                                    </button>
-                                </div>
-                                <div class="nav-item"><a class="nav-link" href="activity?delete=<%=activities.get(i).getId()%>"><span class="material-symbols-outlined">Delete</span></a></div>
-                                <div class="nav-item"><a class="nav-link" href="activity?info=<%=activities.get(i).getId()%>"><span class="material-symbols-outlined">info</span></a></div>
+                        <td class="d-flex gap-1 justify-content-between" colspan="2">
+                            <div class="nav-item"><a class="nav-link" href="activity?edit=<%=activities.get(i).getId()%>"><span class="material-symbols-outlined">Edit</span></a></div>
+                            <div class="nav-item"><a class="nav-link" href="activity?delete=<%=activities.get(i).getId()%>"><span class="material-symbols-outlined">Delete</span></a></div>
+                            <div class="nav-item"><a class="nav-link" href="activity?info=<%=activities.get(i).getId()%>"><span class="material-symbols-outlined">info</span></a></div>
                         </td>
                     </tr>
                 <%}%>
@@ -140,3 +135,5 @@
             document.getElementById("formCreateActivity").style.display = "none";
     }
 </script>
+
+
