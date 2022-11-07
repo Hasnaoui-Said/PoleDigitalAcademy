@@ -1,6 +1,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Arrays" %>
 <%@include file="header.jsp" %>
+<jsp:useBean id="user" class="next.pda.entity.Administrateur" scope="session"></jsp:useBean>
+
 <%
     String message = (String)session.getAttribute("message");
     String className = (String)session.getAttribute("className");
