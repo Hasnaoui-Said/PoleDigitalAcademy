@@ -4,11 +4,12 @@ import next.pda.dao.GenericDao;
 import next.pda.dao.daoImp.ExerciceDaoImp;
 import next.pda.entity.Exercice;
 import next.pda.exeption.Ex;
+import next.pda.services.ExerciseService;
 import next.pda.services.GenericService;
 
 import java.util.List;
 
-public class ExerciceServiceImp implements GenericService<Exercice> {
+public class ExerciceServiceImp implements GenericService<Exercice>, ExerciseService {
     private GenericDao<Exercice> exerciceDaoImp = new ExerciceDaoImp();
     @Override
     public void add(Exercice exercice) {
