@@ -18,14 +18,16 @@ public class ActivityServlet extends HttpServlet {
     private ActivityService activityService = new ActivityServiceImp();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession maSession = request.getSession();
         if (request.getParameter("delete") != null){
             int id = Integer.parseInt(request.getParameter("delete"));
             //this.activityService.deleteById(id);
+            maSession.setAttribute("message", "Activity deleted successfully.");
+            maSession.setAttribute("className", "danger");
         }
         if (request.getParameter("edit") != null){
             int id = Integer.parseInt(request.getParameter("edit"));
             Activity activity = this.activityService.getOneById(id);
-            System.out.println(activity.toString());
             request.setAttribute("edit", id);
             request.setAttribute("activity", activity);
         }
@@ -66,6 +68,7 @@ public class ActivityServlet extends HttpServlet {
         activity.setDescription(request.getParameter("description"));
         activity.setDateFin(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("dateDebut")));
         activity.setDateDebut(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("dateFin")));
+        //List<Exercice> exercices = new ArrayList<>();
         //activity.setTitle(request.getParameter("responsable");
         //String exercises = Arrays.toString(request.getParameterValues("exercise"));
         return activity;

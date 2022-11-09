@@ -19,6 +19,8 @@ public class ExerciceDaoImp implements GenericDao<Exercice> {
     public void add(Exercice exercice) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
+        System.out.println("DaoImp");
+        System.out.println(exercice.toString());
         try{
             entityManager.persist(exercice);
             transaction.commit();
