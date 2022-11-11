@@ -26,9 +26,10 @@ public class UserServlet extends HttpServlet {
     UserDaoImp userDao = new UserDaoImp();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    
         List<User> usersList = this.userDao.getAll();
-
         request.setAttribute("usersList", usersList);
+        
         request.setAttribute("active", "users");
         getServletContext().getRequestDispatcher("/pda/home.jsp").forward(request, response);
     }
