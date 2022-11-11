@@ -13,7 +13,7 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name = "user_id")
 public class Responsable extends Personne implements Serializable {
     @Enumerated(value = EnumType.STRING)
-    private TypesResponsable Type;
+    private TypesResponsable type;
     @OneToMany(mappedBy = "responsable")
     private List<Activity> activity = new ArrayList<Activity>();;
 
@@ -22,16 +22,16 @@ public class Responsable extends Personne implements Serializable {
 
     public Responsable(String lastName, String firstName, String email, String phone, Roles role, boolean is_active, String domaine, TypesResponsable type, Activity activity) {
         super(lastName, firstName, email, phone, role, is_active, domaine);
-        Type = type;
+        this.type = type;
         this.activity.add(activity);
     }
 
     public TypesResponsable getType() {
-        return Type;
+        return type;
     }
 
     public void setType(TypesResponsable type) {
-        Type = type;
+        this.type = type;
     }
 
     public List<Activity> getActivity() {
@@ -45,7 +45,7 @@ public class Responsable extends Personne implements Serializable {
     @Override
     public String toString() {
         return "Responsables{" +
-                "Type=" + Type +
+                "Type=" + type +
                 '}';
     }
 }
