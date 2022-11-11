@@ -15,7 +15,7 @@
 <%
     String message = (String)session.getAttribute("message");
     String className = (String)session.getAttribute("className");
-    List<String> activeLink = Arrays.asList( "home","activity", "exercise", "users", "profile");
+    List<String> activeLink = Arrays.asList( "home","activity", "exercise", "users", "profile","addResponsable","addParticipant");
     String active = request.getAttribute("active").toString();
 %>
 
@@ -42,6 +42,10 @@
         <%@include file="users.jsp" %>
     <% }else if ((active.equals(activeLink.get(4)))){ %>
         <%@include file="profile.jsp" %>
+    <% }else if ((active.equals(activeLink.get(5)))){ %>
+        <%@include file="addRespansable.jsp" %>
+    <% }else if ((active.equals(activeLink.get(6)))){ %>
+        <%@include file="addParticipant.jsp" %>
     <% } else{ %>
         <%@include file="notFound.jsp" %>
     <% } %>
