@@ -4,10 +4,11 @@ import next.pda.dao.GenericDao;
 import next.pda.dao.daoImp.ResponsableDaoImp;
 import next.pda.entity.Responsable;
 import next.pda.services.GenericService;
+import next.pda.services.ResponsableService;
 
 import java.util.List;
 
-public class ResponsableServiceImp implements GenericService<Responsable> {
+public class ResponsableServiceImp implements GenericService<Responsable>, ResponsableService {
     private GenericDao<Responsable> responsableDao = new  ResponsableDaoImp();
 
     public ResponsableServiceImp() {
