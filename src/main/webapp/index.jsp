@@ -45,7 +45,7 @@ if (userSession.getLogin() != null) {
 <div class="about-section">
     <h1>About Us Pole Digital Academy (PDA)</h1>
     <p>Le projet PDAManager qui est une application dédiée au management des activités.</p>
-    <p class="fs-2">Login <a class="text-primary fs-1" href="/pda/v1/login">here.</a> </p>
+    <p class="fs-2">Login <a class="text-primary fs-1" href="pda/v1/login">here.</a> </p>
 </div>
 </body>
 </html>

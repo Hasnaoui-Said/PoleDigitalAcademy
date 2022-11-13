@@ -36,8 +36,9 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        Administrateur user = this.adminService.loginByEmailAndPassword(username, password);
-        if ( user != null ) {
+        Administrateur user = null;
+        try {
+            user = this.adminService.loginByEmailAndPassword(username, password);
             user.setPassword("");
             HttpSession maSession = request.getSession();
             maSession.setAttribute("userSession", user);
@@ -45,10 +46,9 @@ public class LoginServlet extends HttpServlet {
             maSession.setAttribute("message", "Connected successfully.");
             maSession.setAttribute("className", "info");
             response.sendRedirect("home");
-        } else {
-            String message = "Unknown username or password. Please retry.";
+        } catch (Exception e) {
             request.setAttribute("username", username);
-            request.setAttribute("message", message);
+            request.setAttribute("message", e.getMessage());
             getServletContext().getRequestDispatcher("/pda/login.jsp").forward(request, response);
         }
     }

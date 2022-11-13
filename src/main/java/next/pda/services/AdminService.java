@@ -10,7 +10,7 @@ public interface AdminService{
     List<Administrateur> getAll();
     Administrateur getOneByName(String name);
     Administrateur getOneById(long id);
-    Administrateur loginByEmailAndPassword(String email,String password);
+    Administrateur loginByEmailAndPassword(String email,String password) throws Exception;
     Administrateur getOneByEmail(String email);
     Administrateur getOneByPassword(String password);
 }
