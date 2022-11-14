@@ -19,9 +19,10 @@ public class AdminServiceImp implements AdminService {
     @Override
     public Administrateur loginByEmailAndPassword(String email, String password) throws Exception {
         try {
-            Administrateur administrateur = adminRepository.findByEmailAndPassword(email,password);
-            if (administrateur.getPassword().equals(password))
+            Administrateur administrateur = adminRepository.findByEmailAndPassword(email);
+            if (administrateur.getPassword().equals(password)){
                 return administrateur;
+            }
             else
                 throw new Exception("Password incorrect");
         }catch (Exception e){

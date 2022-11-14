@@ -32,6 +32,9 @@ public class ActivityServlet extends HttpServlet {
             request.setAttribute("activity", activity);
         }
         List<Activity> activities = this.activityService.getAll();
+        activities.forEach(activity -> System.out.println(activity.toString()));
+        System.out.println("List des ex ");
+        activities.forEach(activity -> activity.getExercices().forEach(exercice -> System.out.println(exercice.toString())));
         request.setAttribute("activities", activities);
         // send to home page
         request.setAttribute("active", "activity");
