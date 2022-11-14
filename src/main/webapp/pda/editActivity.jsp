@@ -56,8 +56,9 @@
                         <div id="responsableHelps" class="form-text d-none">error</div>
                     </div>
                 </div>
-                <div class="modal-footer mb-0">
-                    <button type="submit" name="update" class="btn btn-primary">update</button>
+                <div class="modal-footer mb-0 mt-4">
+                    <a href="activity" class="nav-link btn btn-muted my-0 mx-5 p-0">Cancel</a>
+                    <button type="submit" name="update" class="btn btn-warning">update</button>
                 </div>
             </form>
         </div>

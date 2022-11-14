@@ -16,12 +16,11 @@ public class AdministrateurRepoImp implements AdminRepository {
     }
 
     @Override
-    public Administrateur findByEmailAndPassword(String email, String password) throws Exception {
+    public Administrateur findByEmailAndPassword(String email) throws Exception {
         Query query =entityManager.createQuery("SELECT a from Administrateur a WHERE (a.email like :email or a.login like:email)");
         query.setParameter("email",email);
         try {
             Administrateur administrateur = (Administrateur) query.getSingleResult();
-            System.out.println(administrateur.toString());
             return  administrateur;
         }catch (Exception e){
             throw new Exception("Login not found");

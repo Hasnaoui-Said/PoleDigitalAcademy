@@ -23,10 +23,12 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession maSession = request.getSession();
         Administrateur administrateur = (Administrateur)maSession.getAttribute("userSession");
-        if (administrateur.getLogin() != null){
-            response.sendRedirect("home");
-            return;
-        }
+
+        if (administrateur != null)
+            if (administrateur.getLogin() != null){
+                response.sendRedirect("home");
+                return;
+            }
         getServletContext().getRequestDispatcher("/pda/login.jsp").forward(request, response);
 
     }
@@ -35,11 +37,9 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-
         Administrateur user = null;
         try {
             user = this.adminService.loginByEmailAndPassword(username, password);
-            user.setPassword("");
             HttpSession maSession = request.getSession();
             maSession.setAttribute("userSession", user);
 

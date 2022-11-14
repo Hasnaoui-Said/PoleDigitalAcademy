@@ -21,10 +21,17 @@
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="profile"><%= userSession.getEmail() %></a>
+                    <div class="dropdown">
+                        <button class="btn text-white dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <%= userSession.getEmail() %>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-muted">
+                            <li><a class="dropdown-item" href="profile">Profile</a></li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="logout?u=said">LogOut</a>
+                    <a class="nav-link" href="logout">LogOut</a>
                 </li>
             </ul>
         </div>
