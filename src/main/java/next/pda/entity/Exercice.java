@@ -22,6 +22,7 @@ public class Exercice implements Serializable {
     private Date dateFin;
     @Enumerated(value = EnumType.STRING)
     private StatusExercice status;
+    private String title;
 
     @ManyToMany(mappedBy = "exercices",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private List<Activity> activities = new ArrayList<Activity>();
@@ -82,6 +83,14 @@ public class Exercice implements Serializable {
 
     public void setActivities(List<Activity> activities) {
         this.activities = activities;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Override

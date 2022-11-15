@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.*;
+import next.pda.enu.TypesActivity;
 
 @Entity
 @Table
@@ -22,6 +23,9 @@ public class Activity implements Serializable {
     @Temporal(value=TemporalType.DATE)
     private Date dateFin;
     private boolean etat;
+    @Enumerated(value = EnumType.STRING)
+
+    private TypesActivity type;
     @ManyToOne
     private Responsable responsable;
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
@@ -31,15 +35,24 @@ public class Activity implements Serializable {
     public Activity() {
     }
 
-    public Activity(String title, String description, Date dateDebut, Date dateFin, boolean etat, Responsable responsable, Exercice exercices, Participant participants) {
+    public Activity(String title, String description, Date dateDebut, Date dateFin, boolean etat, TypesActivity type, Responsable responsable, List<Exercice> exercices, List<Participant> participants) {
         this.title = title;
         this.description = description;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.etat = etat;
+        this.type = type;
         this.responsable = responsable;
-        this.exercices.add(exercices);
-        this.participants.add(participants);
+        this.exercices = exercices;
+        this.participants = participants;
+    }
+
+    public TypesActivity getType() {
+        return type;
+    }
+
+    public void setType(TypesActivity type) {
+        this.type = type;
     }
 
     public long getId() {

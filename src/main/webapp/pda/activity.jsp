@@ -1,4 +1,5 @@
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="next.pda.enu.TypesActivity" %>
 <jsp:useBean id="activities" type="java.util.ArrayList<next.pda.entity.Activity>" scope="request"></jsp:useBean>
 
 <div class="container">
@@ -6,7 +7,7 @@
         <div>
             <button type="button" onclick="createActivity()" class="btn btn-primary"
                     <%= (request.getAttribute("edit") != null)? "disabled": ""  %> id="createActivity">
-                Create Activity
+                Create
             </button>
         </div>
     </div>
@@ -40,6 +41,16 @@
                             <input type="date" class="form-control" id="dateFin" name="dateFin" aria-describedby="dateFinHelp">
                             <div id="dateFinHelps" class="form-text d-none">error</div>
                         </div>
+                        <div class="col-6 mb-3">
+                            <label for="type" class="form-label">Type</label>
+                            <select class="form-select" id="type" name="type" aria-label="Select a manager" aria-describedby="typeHelp">
+                                <option selected disabled></option>
+                                <% for (TypesActivity type: TypesActivity.values()) { %>
+                                <option value="<%=type%>"><%=type%></option>
+                                <% } %>
+                            </select>
+                            <div id="typeHelps" class="form-text d-none">error</div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-6 mb-3">
@@ -55,7 +66,7 @@
                         <div class="col-6 mb-3">
                             <label for="responsable" class="form-label">responsable</label>
                             <select class="form-select" id="responsable" name="responsable" aria-label="Select a manager" aria-describedby="responsableHelp">
-                                <option selected></option>
+                                <option disabled selected></option>
                                 <option value="1">responsable1</option>
                                 <option value="2">responsable2</option>
                                 <option value="3">responsable3</option>
@@ -64,6 +75,7 @@
                         </div>
                     </div>
                     <div class="modal-footer mb-0">
+                        <a href="activity" class="nav-link btn btn-muted my-0 mx-5 p-0">Cancel</a>
                         <button type="submit" name="save" class="btn btn-primary">Save</button>
                     </div>
                 </form>
@@ -94,15 +106,16 @@
         <div class="table-responsive">
             <table class="table">
                 <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Desc</th>
-                    <th scope="col">date debut</th>
-                    <th scope="col">date fin</th>
-                    <th scope="col">Status</th>
-                    <th scope="col" colspan="2" class="text-end">Actions</th>
-                </tr>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Desc</th>
+                        <th scope="col">date debut</th>
+                        <th scope="col">date fin</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Status</th>
+                        <th scope="col" colspan="2" class="text-end">Actions</th>
+                    </tr>
                 </thead>
                 <tbody class="table-group-divider">
 
@@ -113,6 +126,7 @@
                         <td><%=activities.get(i).getDescription()%></td>
                         <td><%=new SimpleDateFormat("yyyy-MM-dd").format(activities.get(i).getDateDebut())%></td>
                         <td><%=activities.get(i).getDateFin()%></td>
+                        <td><%=activities.get(i).getType()%></td>
                         <td><%=activities.get(i).getEtat()%></td>
                         <td class="d-flex gap-1 justify-content-between" colspan="2">
                             <div class="nav-item"><a class="nav-link" href="activity?edit=<%=activities.get(i).getId()%>"><span class="material-symbols-outlined">Edit</span></a></div>

@@ -32,9 +32,6 @@ public class ActivityServlet extends HttpServlet {
             request.setAttribute("activity", activity);
         }
         List<Activity> activities = this.activityService.getAll();
-        activities.forEach(activity -> System.out.println(activity.toString()));
-        System.out.println("List des ex ");
-        activities.forEach(activity -> activity.getExercices().forEach(exercice -> System.out.println(exercice.toString())));
         request.setAttribute("activities", activities);
         // send to home page
         request.setAttribute("active", "activity");
@@ -49,12 +46,12 @@ public class ActivityServlet extends HttpServlet {
             if (request.getParameter("update") != null){
                 int id = Integer.parseInt(request.getParameter("id"));
                 activity.setId(id);
-                this.activityService.update(activity);
+                //this.activityService.update(activity);
                 maSession.setAttribute("message", "Activity updated successfully.");
                 maSession.setAttribute("className", "info");
             }else{
                 System.out.println("save");
-                this.activityService.add(activity);
+                //this.activityService.add(activity);
                 maSession.setAttribute("message", "Activity saved successfully.");
                 maSession.setAttribute("className", "success");
             }
@@ -68,6 +65,8 @@ public class ActivityServlet extends HttpServlet {
 
         Activity activity = new Activity();
         activity.setTitle(request.getParameter("title"));
+        System.out.println(request.getParameter("type"));
+        activity.setDescription(request.getParameter("description"));
         activity.setDescription(request.getParameter("description"));
         activity.setDateFin(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("dateDebut")));
         activity.setDateDebut(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("dateFin")));
