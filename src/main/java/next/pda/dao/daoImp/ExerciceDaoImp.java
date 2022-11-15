@@ -3,37 +3,39 @@ package next.pda.dao.daoImp;
 import jakarta.persistence.*;
 import next.pda.dao.GenericDao;
 import next.pda.entity.Exercice;
+import next.pda.single.EntitySingletone;
 
 import java.util.List;
 
 public class ExerciceDaoImp implements GenericDao<Exercice> {
 
+    private EntitySingletone singletone= EntitySingletone.getInstance()  ;
     private EntityManager entityManager;
-
+    private EntityTransaction transaction;
     public ExerciceDaoImp() {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pda_data");
-        this.entityManager = entityManagerFactory.createEntityManager();
     }
 
     @Override
     public void add(Exercice exercice) {
-        EntityTransaction transaction = entityManager.getTransaction();
+        entityManager = singletone.getEntityManager();
+        transaction = singletone.getTransaction();
         transaction.begin();
-        System.out.println("DaoImp");
-        System.out.println(exercice.toString());
         try{
             entityManager.persist(exercice);
             transaction.commit();
         }catch (Exception e){
             transaction.rollback();
             e.printStackTrace();
+        }finally {
+            singletone.closeEntityManager();
         }
 
     }
 
     @Override
     public Exercice update(Exercice exercice) {
-        EntityTransaction transaction = entityManager.getTransaction();
+        entityManager = singletone.getEntityManager();
+        transaction = singletone.getTransaction();
         transaction.begin();
         try{
             entityManager.merge(exercice);
@@ -41,19 +43,47 @@ public class ExerciceDaoImp implements GenericDao<Exercice> {
         }catch (Exception e){
             transaction.rollback();
             e.printStackTrace();
+        }finally {
+            singletone.closeEntityManager();
         }
         return exercice;
     }
 
     @Override
     public List<Exercice> getAll() {
-        Query query = entityManager.createQuery("SELECT e FROM  Exercice e");
-        return query.getResultList();
+        entityManager = singletone.getEntityManager();
+        transaction = singletone.getTransaction();
+        transaction.begin();
+        try{
+            Query query = entityManager.createQuery("SELECT e FROM  Exercice e");
+            transaction.commit();
+            return query.getResultList();
+        }catch (Exception e){
+            transaction.rollback();
+            e.printStackTrace();
+            return null;
+        }finally {
+            singletone.closeEntityManager();
+        }
+
     }
 
     @Override
     public Exercice getOne(long Id) {
-        Exercice exercice = entityManager.find(Exercice.class,Id);
-        return exercice;
+        entityManager = singletone.getEntityManager();
+        transaction = singletone.getTransaction();
+        transaction.begin();
+        try {
+            Exercice exercice = entityManager.find(Exercice.class,Id);
+            transaction.commit();
+            return exercice;
+        }catch (Exception e){
+            transaction.rollback();
+            e.printStackTrace();
+            return null;
+        }finally {
+            singletone.closeEntityManager();
+        }
+
     }
 }

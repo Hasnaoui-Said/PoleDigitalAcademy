@@ -8,6 +8,5 @@ import java.util.Date;
 import java.util.List;
 
 public interface ParticipantRepository {
-    List<Participant> getAllByGenre(String genre);
-    List<Participant> getAllByDate(Date date);
+    List<Participant> filter(long activity_id,Date dateDebut,Date dateFin,Genre genre);
 }

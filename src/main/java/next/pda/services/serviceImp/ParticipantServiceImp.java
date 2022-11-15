@@ -48,7 +48,7 @@ public class ParticipantServiceImp implements ParticipantService {
 
     @Override
     public List<Participant> getAllByGenre(String genre) {
-        return participantRepository.getAllByGenre(genre);
+        return null;
     }
 
     @Override

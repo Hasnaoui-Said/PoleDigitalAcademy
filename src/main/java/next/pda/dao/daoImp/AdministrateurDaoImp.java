@@ -3,20 +3,21 @@ package next.pda.dao.daoImp;
 import jakarta.persistence.*;
 import next.pda.dao.GenericDao;
 import next.pda.entity.Administrateur;
+import next.pda.single.EntitySingletone;
 
 import java.util.List;
 
 public class AdministrateurDaoImp implements GenericDao<Administrateur> {
-    private EntityManager entityManager ;
-
+    private EntitySingletone singletone= EntitySingletone.getInstance()  ;
+    private EntityManager entityManager;
+    private EntityTransaction transaction;
     public AdministrateurDaoImp() {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pda_data");
-        entityManager = entityManagerFactory.createEntityManager();
     }
 
     @Override
     public void add(Administrateur administrateur) {
-        EntityTransaction transaction = entityManager.getTransaction();
+        entityManager = singletone.getEntityManager();
+        transaction = singletone.getTransaction();
         transaction.begin();
         try {
             entityManager.persist(administrateur);
@@ -24,12 +25,15 @@ public class AdministrateurDaoImp implements GenericDao<Administrateur> {
         }catch (Exception e){
             transaction.rollback();
             e.printStackTrace();
+        }finally {
+            singletone.closeEntityManager();
         }
     }
 
     @Override
     public Administrateur update(Administrateur administrateur) {
-        EntityTransaction transaction = entityManager.getTransaction();
+        singletone.getEntityManager();
+        singletone.getTransaction();
         transaction.begin();
         try {
             entityManager.persist(administrateur);
@@ -37,19 +41,46 @@ public class AdministrateurDaoImp implements GenericDao<Administrateur> {
         }catch (Exception e){
             transaction.rollback();
             e.printStackTrace();
+        }finally {
+            singletone.closeEntityManager();
         }
         return administrateur;
     }
 
     @Override
     public List<Administrateur> getAll() {
-        Query query = entityManager.createQuery("SELECT a FROM Administrateur a");
-        return query.getResultList();
+        entityManager = singletone.getEntityManager();
+        transaction = singletone.getTransaction();
+        transaction.begin();
+        try {
+            Query query = entityManager.createQuery("SELECT a FROM Administrateur a");
+            transaction.commit();
+            return query.getResultList();
+        }catch (Exception e){
+            transaction.rollback();
+            e.printStackTrace();
+            return null;
+        }finally {
+            singletone.closeEntityManager();
+        }
     }
 
     @Override
     public Administrateur getOne(long Id) {
-        Administrateur administrateur = entityManager.find(Administrateur.class,Id);
-        return administrateur;
+        entityManager = singletone.getEntityManager();
+        transaction = singletone.getTransaction();
+        transaction.begin();
+        try {
+            Administrateur administrateur = entityManager.find(Administrateur.class,Id);
+            transaction.commit();
+            return administrateur;
+        }catch (Exception e){
+            transaction.rollback();
+            e.printStackTrace();
+            return null;
+        }finally {
+            singletone.closeEntityManager();
+        }
+
     }
 }

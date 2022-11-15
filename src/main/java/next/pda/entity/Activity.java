@@ -24,9 +24,9 @@ public class Activity implements Serializable {
     private boolean etat;
     @ManyToOne
     private Responsable responsable;
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Exercice> exercices =new ArrayList<Exercice>();
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Participant> participants = new ArrayList<Participant>();
     public Activity() {
     }
