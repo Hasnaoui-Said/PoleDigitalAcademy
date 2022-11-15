@@ -1,6 +1,8 @@
 
 
 <jsp:useBean id="userSession" class="next.pda.entity.Administrateur" scope="session"></jsp:useBean>
+<%
+%>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <ul class="container">
         <a class="navbar-brand" href="home">PDA</a>

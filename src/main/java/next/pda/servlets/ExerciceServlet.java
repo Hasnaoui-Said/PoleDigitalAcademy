@@ -72,7 +72,8 @@ public class ExerciceServlet extends HttpServlet {
 
         Exercice exercice = new Exercice();
         exercice.setAnnee(request.getParameter("annee"));
-        //exercice.setStatus(StatusExercice.EN_COURS);
+        exercice.setTitle(request.getParameter("title"));
+        exercice.setStatus(StatusExercice.valueOf(request.getParameter("status")));
         exercice.setDateFin(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("dateDebut")));
         exercice.setDateDebut(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("dateFin")));
         return exercice;

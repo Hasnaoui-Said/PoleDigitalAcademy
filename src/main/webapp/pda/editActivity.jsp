@@ -48,7 +48,7 @@
                     <div class="col-6 mb-3">
                         <label for="responsable" class="form-label">responsable</label>
                         <select class="form-select" id="responsable" name="responsable" aria-label="Select a manager" aria-describedby="responsableHelp">
-                            <option selected></option>
+                            <option disabled selected></option>
                             <option value="1">responsable1</option>
                             <option value="2">responsable2</option>
                             <option value="3">responsable3</option>

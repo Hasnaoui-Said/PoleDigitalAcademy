@@ -38,15 +38,15 @@
                         <div class="col-6 mb-3">
                             <label for="status" class="form-label">Status</label>
                             <select class="form-select" id="status" name="status" aria-label="Select a manager" aria-describedby="statusHelp">
-                                <option selected></option>
-                                <option value="1">status1</option>
-                                <option value="2">status2</option>
-                                <option value="3">status3</option>
+                                <% for (StatusExercice status: StatusExercice.values()){%>
+                                <option value="<%=status%>"><%=status%></option>
+                                <% } %>
                             </select>
                             <div id="statusHelps" class="form-text d-none">error</div>
                         </div>
                     </div>
                     <div class="modal-footer mb-0">
+                        <a href="exercise" class="nav-link btn btn-muted my-0 mx-5 p-0">Cancel</a>
                         <button type="submit" name="update" class="btn btn-warning">Update</button>
                     </div>
                 </form>
