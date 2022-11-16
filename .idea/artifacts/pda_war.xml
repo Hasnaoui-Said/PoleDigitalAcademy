@@ -1,14 +1,14 @@
 <component name="ArtifactManager">
-  <artifact type="war" name="PoleDigitalAcademy:war">
+  <artifact type="war" name="pda:war">
     <output-path>$PROJECT_DIR$/target</output-path>
     <properties id="maven-jee-properties">
       <options>
-        <module>PoleDigitalAcademy</module>
+        <module>pda</module>
         <packaging>war</packaging>
       </options>
     </properties>
     <root id="archive" name="pda-1.0-SNAPSHOT.war">
-      <element id="artifact" artifact-name="PoleDigitalAcademy:war exploded" />
+      <element id="artifact" artifact-name="pda:war exploded" />
     </root>
   </artifact>
 </component>
