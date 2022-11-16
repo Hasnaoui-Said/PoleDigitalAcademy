@@ -44,6 +44,7 @@ public class ActivityDaoImp implements GenericDao<Activity> {
     @Override
     public List<Activity> getAll() {
         Query query = entityManager.createQuery("SELECT a FROM Activity a");
+        
         return query.getResultList();
     }
 

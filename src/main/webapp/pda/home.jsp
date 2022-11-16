@@ -10,6 +10,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Arrays" %>
 <%@ page import="next.pda.entity.Administrateur" %>
+
 <%@include file="header.jsp" %>
 
 <%
