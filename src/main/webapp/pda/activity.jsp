@@ -1,12 +1,17 @@
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="next.pda.enu.TypesActivity" %>
+<%@ page import="next.pda.entity.Exercice" %>
+<%@ page import="next.pda.entity.Responsable" %>
 <jsp:useBean id="activities" type="java.util.ArrayList<next.pda.entity.Activity>" scope="request"></jsp:useBean>
+<jsp:useBean id="responsablesList" type="java.util.ArrayList<next.pda.entity.Responsable>" scope="request"></jsp:useBean>
+<jsp:useBean id="exercisesList" type="java.util.ArrayList<next.pda.entity.Exercice>" scope="request"></jsp:useBean>
 
 <div class="container">
     <div class="d-flex justify-content-end align-items-center m-4">
         <div>
             <button type="button" onclick="createActivity()" class="btn btn-primary"
                     <%= (request.getAttribute("edit") != null)? "disabled": ""  %> id="createActivity">
-                Create Activity
+                Create
             </button>
         </div>
     </div>
@@ -43,27 +48,49 @@
                     </div>
                     <div class="row">
                         <div class="col-6 mb-3">
+                            <label for="type" class="form-label">Type</label>
+
+                            <select class="form-select" id="type" name="type" aria-label="Select a manager" aria-describedby="typeHelp">
+                                <option disabled selected></option>
+                                <% for (TypesActivity type: TypesActivity.values()){%>
+                                <option value="<%=type%>"><%=type%></option>
+                                <% } %>
+                            </select>
+                            <div id="typeHelps" class="form-text d-none">error</div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="status" class="form-label">Status</label>
+                            <select class="form-select" id="status" name="status" aria-label="Select a manager" aria-describedby="statusHelp">
+                                <option value="True" selected>True</option>
+                                <option value="false">False</option>
+                            </select>
+                            <div id="statusHelps" class="form-text d-none">error</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mb-3">
                             <label for="exercise" class="form-label">exercise</label>
-                            <select class="form-select" multiple id="exercise" name="exercise" aria-label="Select a manager" aria-describedby="exerciseHelp">
+                            <select class="form-select form-control" multiple id="exercise" name="exercise" aria-label="Select a manager" aria-describedby="exerciseHelp">
                                 <option selected disabled></option>
-                                <option value="1">m1</option>
-                                <option value="2">m2</option>
-                                <option value="3">m3</option>
+                                <% for (Exercice exercice: exercisesList ) {%>
+                                <option value="<%=exercice.getExercice_id()%>"><%=exercice.getExercice_id()%> - <%=exercice.getTitle()%></option>
+                                <% } %>
                             </select>
                             <div id="exerciseHelps" class="form-text d-none">error</div>
                         </div>
                         <div class="col-6 mb-3">
                             <label for="responsable" class="form-label">responsable</label>
                             <select class="form-select" id="responsable" name="responsable" aria-label="Select a manager" aria-describedby="responsableHelp">
-                                <option selected></option>
-                                <option value="1">responsable1</option>
-                                <option value="2">responsable2</option>
-                                <option value="3">responsable3</option>
+                                <option disabled selected></option>
+                                <% for (Responsable resp: responsablesList ) {%>
+                                <option value="<%=resp.getId()%>"><%=resp.getId() + " - " + resp.getFirstName() + " "+resp.getLastName()%></option>
+                                <% } %>
                             </select>
                             <div id="responsableHelps" class="form-text d-none">error</div>
                         </div>
                     </div>
                     <div class="modal-footer mb-0">
+                        <a href="activity" class="nav-link btn btn-muted my-0 mx-5 p-0">Cancel</a>
                         <button type="submit" name="save" class="btn btn-primary">Save</button>
                     </div>
                 </form>
@@ -94,15 +121,16 @@
         <div class="table-responsive">
             <table class="table">
                 <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Desc</th>
-                    <th scope="col">date debut</th>
-                    <th scope="col">date fin</th>
-                    <th scope="col">Status</th>
-                    <th scope="col" colspan="2" class="text-end">Actions</th>
-                </tr>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Desc</th>
+                        <th scope="col">date debut</th>
+                        <th scope="col">date fin</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Status</th>
+                        <th scope="col" colspan="2" class="text-end">Actions</th>
+                    </tr>
                 </thead>
                 <tbody class="table-group-divider">
 
@@ -113,6 +141,7 @@
                         <td><%=activities.get(i).getDescription()%></td>
                         <td><%=new SimpleDateFormat("yyyy-MM-dd").format(activities.get(i).getDateDebut())%></td>
                         <td><%=activities.get(i).getDateFin()%></td>
+                        <td><%=activities.get(i).getType()%></td>
                         <td><%=activities.get(i).getEtat()%></td>
                         <td class="d-flex gap-1 justify-content-between" colspan="2">
                             <div class="nav-item"><a class="nav-link" href="activity?edit=<%=activities.get(i).getId()%>"><span class="material-symbols-outlined">Edit</span></a></div>
@@ -134,6 +163,11 @@
         else
             document.getElementById("formCreateActivity").style.display = "none";
     }
+    mobiscroll.select('#multiple-select', {
+        inputElement: document.getElementById('my-input'),
+        touchUi: false
+    });
 </script>
+
 
 

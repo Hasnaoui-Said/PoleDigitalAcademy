@@ -65,7 +65,6 @@ public class ActivityDaoImp implements GenericDao<Activity> {
         }finally {
             singletone.closeEntityManager();
         }
-
     }
 
     @Override

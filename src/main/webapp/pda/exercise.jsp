@@ -1,4 +1,5 @@
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="next.pda.enu.StatusExercice" %>
 <jsp:useBean id="exercises" type="java.util.ArrayList<next.pda.entity.Exercice>" scope="request"></jsp:useBean>
 
 <div class="container">
@@ -46,15 +47,15 @@
                         <div class="col-6 mb-3">
                             <label for="status" class="form-label">Status</label>
                             <select class="form-select" id="status" name="status" aria-label="Select a manager" aria-describedby="statusHelp">
-                                <option selected></option>
-                                <option value="1">status1</option>
-                                <option value="2">status2</option>
-                                <option value="3">status3</option>
+                                <% for (StatusExercice status: StatusExercice.values()){%>
+                                <option value="<%=status%>"><%=status%></option>
+                                <% } %>
                             </select>
                             <div id="statusHelps" class="form-text d-none">error</div>
                         </div>
                     </div>
                     <div class="modal-footer mb-0">
+                        <a href="exercise" class="nav-link btn btn-muted my-0 mx-5 p-0">Cancel</a>
                         <button type="submit" name="save" class="btn btn-primary">Save</button>
                     </div>
                 </form>
@@ -68,8 +69,9 @@
                 Status
             </button>
             <ul class="dropdown-menu dropdown-menu-muted">
-                <li><a class="dropdown-item" href="#">Active</a></li>
-                <li><a class="dropdown-item" href="#">Inactive</a></li>
+                <% for (StatusExercice status: StatusExercice.values()) {%>
+                <li><a class="dropdown-item" href="?<%=status%>"><%=status%></a></li>
+                <% } %>
             </ul>
         </div>
         <div class="input-group">
@@ -100,7 +102,7 @@
                 <% for (int i=0; i<exercises.size();i++){%>
                 <tr>
                     <td><%=exercises.get(i).getExercice_id()%></td>
-                    <td>exercises.get(i).getTitle()</td>
+                    <td><%=exercises.get(i).getTitle()%></td>
                     <td><%=exercises.get(i).getAnnee()%></td>
                     <td><%=new SimpleDateFormat("yyyy-MM-dd").format(exercises.get(i).getDateDebut())%></td>
                     <td><%=exercises.get(i).getDateFin()%></td>

@@ -3,9 +3,9 @@
 <jsp:useBean id="userSession" class="next.pda.entity.Administrateur" scope="session"></jsp:useBean>
 <%
 if (userSession.getLogin() != null) {
-    response.sendRedirect("pda/v1/login");
-    return;
-}
+        response.sendRedirect("pda/v1/login");
+        return;
+    }
 %>
 <!DOCTYPE html>
 <html>
