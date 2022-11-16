@@ -1,7 +1,7 @@
 <%
     HttpSession maSession = request.getSession();
     Administrateur administrateur = (Administrateur)maSession.getAttribute("userSession");
-    if (administrateur.getLogin() == null){
+    if (request.getSession().getAttribute("userSession")==null){
         response.sendRedirect("login");
         return;
     }

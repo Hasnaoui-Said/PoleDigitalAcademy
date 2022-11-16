@@ -3,19 +3,21 @@ package next.pda.dao.daoImp;
 import jakarta.persistence.*;
 import next.pda.dao.GenericDao;
 import next.pda.entity.Responsable;
+import next.pda.single.EntitySingletone;
 
 import java.util.List;
 
 public class ResponsableDaoImp implements GenericDao<Responsable> {
+    private EntitySingletone singletone= EntitySingletone.getInstance()  ;
     private EntityManager entityManager;
+    private EntityTransaction transaction;
     public ResponsableDaoImp() {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pda_data");
-        entityManager = entityManagerFactory.createEntityManager();
     }
 
     @Override
     public void add(Responsable responsable) {
-        EntityTransaction transaction = entityManager.getTransaction();
+        entityManager = singletone.getEntityManager();
+        transaction = singletone.getTransaction();
         transaction.begin();
         try {
             entityManager.persist(responsable);
@@ -23,33 +25,64 @@ public class ResponsableDaoImp implements GenericDao<Responsable> {
         }catch (Exception e){
             transaction.rollback();
             e.printStackTrace();
+        }finally {
+            singletone.closeEntityManager();
         }
 
     }
 
     @Override
     public Responsable update(Responsable responsable) {
-        EntityTransaction transaction = entityManager.getTransaction();
+        entityManager = singletone.getEntityManager();
+        transaction = singletone.getTransaction();
         transaction.begin();
         try {
             entityManager.merge(responsable);
             transaction.commit();
+            return responsable;
         }catch (Exception e){
             transaction.rollback();
             e.printStackTrace();
+            return null;
+        }finally {
+            singletone.closeEntityManager();
         }
-        return responsable;
+
     }
 
     @Override
     public List<Responsable> getAll() {
-        Query query = entityManager.createQuery("SELECT r FROM  Responsable  r");
-        return query.getResultList();
+        entityManager = singletone.getEntityManager();
+        transaction = singletone.getTransaction();
+        transaction.begin();
+        try {
+            Query query = entityManager.createQuery("SELECT r FROM  Responsable  r");
+            return query.getResultList();
+        }catch (Exception e){
+            transaction.rollback();
+            e.printStackTrace();
+            return null;
+        }finally {
+            singletone.closeEntityManager();
+        }
+
     }
 
     @Override
     public Responsable getOne(long Id) {
-        Responsable responsable = entityManager.find(Responsable.class,Id);
-        return responsable;
+        entityManager = singletone.getEntityManager();
+        transaction = singletone.getTransaction();
+        transaction.begin();
+        try {
+            Responsable responsable = entityManager.find(Responsable.class,Id);
+            return responsable;
+        }catch (Exception e){
+            transaction.rollback();
+            e.printStackTrace();
+            return null;
+        }finally {
+            singletone.closeEntityManager();
+        }
+
     }
 }
