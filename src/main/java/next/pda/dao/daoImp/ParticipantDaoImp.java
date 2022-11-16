@@ -6,21 +6,24 @@ import next.pda.dao.ParticipantRepository;
 import next.pda.entity.Activity;
 import next.pda.entity.Participant;
 import next.pda.enu.Genre;
+import next.pda.single.EntitySingletone;
 
 import java.util.Date;
 import java.util.List;
 
-public class ParticipantDaoImp implements GenericDao<Participant>, ParticipantRepository {
+public class ParticipantDaoImp implements GenericDao<Participant>,ParticipantRepository{
 
+    private EntitySingletone singletone= EntitySingletone.getInstance()  ;
     private EntityManager entityManager;
+    private EntityTransaction transaction;
     public ParticipantDaoImp() {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pda_data");
-        entityManager = entityManagerFactory.createEntityManager();
+
     }
 
     @Override
     public void add(Participant participant) {
-        EntityTransaction transaction = entityManager.getTransaction();
+        entityManager = singletone.getEntityManager();
+        transaction = singletone.getTransaction();
         transaction.begin();
         try {
             entityManager.persist(participant);
@@ -33,7 +36,8 @@ public class ParticipantDaoImp implements GenericDao<Participant>, ParticipantRe
 
     @Override
     public Participant update(Participant participant) {
-        EntityTransaction transaction = entityManager.getTransaction();
+        entityManager = singletone.getEntityManager();
+        transaction = singletone.getTransaction();
         transaction.begin();
         try {
             entityManager.merge(participant);
@@ -47,26 +51,75 @@ public class ParticipantDaoImp implements GenericDao<Participant>, ParticipantRe
 
     @Override
     public List<Participant> getAll() {
-        Query query = entityManager.createQuery("SELECT e FROM  Participant e");
-        return query.getResultList();
+        entityManager = singletone.getEntityManager();
+        transaction = singletone.getTransaction();
+        transaction.begin();
+        try {
+            Query query = entityManager.createQuery("SELECT e FROM  Participant e");
+            return query.getResultList();
+        }catch (Exception e){
+            transaction.rollback();
+            e.printStackTrace();
+            return null;
+        }finally {
+            singletone.closeEntityManager();
+        }
+
     }
 
 
     @Override
     public Participant getOne(long Id) {
-        Participant participant = entityManager.find(Participant.class,Id);
-        return participant;
-    }
-    @Override
-    public List<Participant> getAllByGenre(String genre) {
-        Query query = entityManager.createQuery("SELECT p FROM Participant p WHERE p.genre =:g");
-        query.setParameter("g",Genre.valueOf(genre.toUpperCase()));
-        return query.getResultList();
+        entityManager = singletone.getEntityManager();
+        transaction = singletone.getTransaction();
+        transaction.begin();
+        try {
+            Participant participant = entityManager.find(Participant.class,Id);
+            return participant;
+        }catch (Exception e){
+            transaction.rollback();
+            e.printStackTrace();
+            return null;
+        }finally {
+            singletone.closeEntityManager();
+        }
+
     }
 
-
     @Override
-    public List<Participant> getAllByDate(Date date) {
-        return null;
+    public List<Participant> filter(long activity_id,Date dateDebut,Date dateFin, Genre genre) {
+
+        String query = "SELECT p FROM Participant p join p.activities a where 1=1 ";
+        if(activity_id >0){
+            query += "and a.id=:activity_id ";
+        }if(dateDebut != null){
+            query += "and a.dateDebut=:dateDebut ";
+        }if(dateFin != null){
+            query += "and a.dateFin=:dateFin ";
+        }if(genre!=null){
+            query += "and p.genre=:genre";
+        }
+        entityManager = singletone.getEntityManager();
+        transaction = singletone.getTransaction();
+        transaction.begin();
+        try {
+            Query a = entityManager.createQuery(query,Activity.class);
+            if(activity_id > 0){
+                a.setParameter("activity_id",activity_id);
+            }if(dateDebut!=null){
+                a.setParameter("dateDebut",dateDebut);
+            }if(dateFin != null){
+                a.setParameter("dateFin",dateFin);
+            }if(genre != null){
+                a.setParameter("genre",genre);
+            }
+            return a.getResultList();
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }finally {
+            singletone.closeEntityManager();
+        }
+
     }
 }

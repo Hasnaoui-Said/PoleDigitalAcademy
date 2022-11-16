@@ -16,7 +16,7 @@ public class Participant extends Personne implements Serializable {
     private String structure;
     @Enumerated(value = EnumType.STRING)
     private Genre genre;
-    @ManyToMany(mappedBy = "participants",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "participants",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Activity> activities =new ArrayList<Activity>();
     public Participant() {
     }
