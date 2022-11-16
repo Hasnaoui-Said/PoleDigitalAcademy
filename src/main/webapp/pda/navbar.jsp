@@ -1,5 +1,3 @@
-
-
 <jsp:useBean id="userSession" class="next.pda.entity.Administrateur" scope="session"></jsp:useBean>
 <%
 %>

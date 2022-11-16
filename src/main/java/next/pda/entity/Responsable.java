@@ -19,11 +19,9 @@ public class Responsable extends Personne implements Serializable {
 
     public Responsable() {
     }
-
-    public Responsable(String lastName, String firstName, String email, String phone, Roles role, boolean is_active, String domaine, TypesResponsable type, Activity activity) {
+    public Responsable(String lastName, String firstName, String email, String phone, Roles role, boolean is_active, String domaine, TypesResponsable type) {
         super(lastName, firstName, email, phone, role, is_active, domaine);
         this.type = type;
-        this.activity.add(activity);
     }
 
     public TypesResponsable getType() {
