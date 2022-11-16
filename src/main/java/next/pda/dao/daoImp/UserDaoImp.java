@@ -2,18 +2,20 @@ package next.pda.dao.daoImp;
 
 import jakarta.persistence.*;
 import next.pda.entity.User;
+import next.pda.single.EntitySingletone;
 
 import java.util.List;
 
 public class UserDaoImp{
+    private EntitySingletone singletone= EntitySingletone.getInstance()  ;
     private EntityManager entityManager;
+    private EntityTransaction transaction;
     public UserDaoImp() {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pda_data");
-        entityManager = entityManagerFactory.createEntityManager();
     }
 
     public void add(User user) {
-        EntityTransaction transaction = entityManager.getTransaction();
+        entityManager = singletone.getEntityManager();
+        transaction = singletone.getTransaction();
         transaction.begin();
         try {
             entityManager.persist(user);
@@ -21,16 +23,42 @@ public class UserDaoImp{
         }catch (Exception e){
             transaction.rollback();
             e.printStackTrace();
+        }finally {
+            singletone.closeEntityManager();
         }
     }
 
     public List<User> getAll() {
-        Query query = entityManager.createQuery("SELECT r FROM  User r");
-        return query.getResultList();
+        entityManager = singletone.getEntityManager();
+        transaction = singletone.getTransaction();
+        transaction.begin();
+        try {
+            Query query = entityManager.createQuery("SELECT r FROM  User r");
+            return query.getResultList();
+        }catch (Exception e){
+            transaction.rollback();
+            e.printStackTrace();
+            return null;
+        }finally {
+            singletone.closeEntityManager();
+        }
+
     }
 
     public User getOne(long Id) {
-        User user = entityManager.find(User.class,Id);
-        return user;
+        entityManager = singletone.getEntityManager();
+        transaction = singletone.getTransaction();
+        transaction.begin();
+        try {
+            User user = entityManager.find(User.class,Id);
+            return user;
+        }catch (Exception e){
+            transaction.rollback();
+            e.printStackTrace();
+            return null;
+        }finally {
+            singletone.closeEntityManager();
+        }
+
     }
 }
