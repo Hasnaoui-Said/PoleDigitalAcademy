@@ -30,8 +30,11 @@ public class ActivityServiceImp implements ActivityService, GenericService<Activ
                 activity.getExercices().add(this.exerciseService.getOneById(ex));
             if(idRes != -1)
                 activity.setResponsables(this.responsableService.getOneById(idRes));
-            activityDao.add(activity);
-            return activity;
+            if(activityDao.add(activity)!=null){
+                return activity;
+            }else {
+                return null;
+            }
         }catch (Exception e){
             e.printStackTrace();
             return null;

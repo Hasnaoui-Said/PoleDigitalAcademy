@@ -18,16 +18,18 @@ public class ActivityDaoImp implements GenericDao<Activity> {
     }
 
     @Override
-    public void add(Activity activity) {
+    public Activity add(Activity activity) {
         entityManager = singletone.getEntityManager();
         transaction = singletone.getTransaction();
         transaction.begin();
         try {
             entityManager.persist(activity);
             transaction.commit();
+            return activity;
         }catch (Exception e){
             transaction.rollback();
             e.printStackTrace();
+            return null;
         }finally {
             singletone.closeEntityManager();
         }
