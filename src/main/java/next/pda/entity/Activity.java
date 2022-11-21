@@ -7,6 +7,7 @@ import java.util.List;
 
 import jakarta.persistence.*;
 import next.pda.enu.TypesActivity;
+import org.hibernate.validator.constraints.UniqueElements;
 
 @Entity
 @Table
@@ -16,13 +17,19 @@ public class Activity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "activity_id")
     private long id;
+    @Column(nullable = false,unique = true)
     private String title;
+    @Column(nullable = false)
     private String description;
+    @Column(nullable = false)
     @Temporal(value=TemporalType.DATE)
     private Date dateDebut;
+    @Column(nullable = false)
     @Temporal(value=TemporalType.DATE)
     private Date dateFin;
+    @Column(nullable = false)
     private boolean etat;
+    @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
 
     private TypesActivity type;

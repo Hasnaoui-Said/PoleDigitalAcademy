@@ -15,16 +15,18 @@ public class AdministrateurDaoImp implements GenericDao<Administrateur> {
     }
 
     @Override
-    public void add(Administrateur administrateur) {
+    public Administrateur add(Administrateur administrateur) {
         entityManager = singletone.getEntityManager();
         transaction = singletone.getTransaction();
         transaction.begin();
         try {
             entityManager.persist(administrateur);
             transaction.commit();
+            return administrateur;
         }catch (Exception e){
             transaction.rollback();
             e.printStackTrace();
+            return null;
         }finally {
             singletone.closeEntityManager();
         }

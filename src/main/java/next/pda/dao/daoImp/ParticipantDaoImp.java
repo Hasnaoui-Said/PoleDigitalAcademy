@@ -21,16 +21,18 @@ public class ParticipantDaoImp implements GenericDao<Participant>,ParticipantRep
     }
 
     @Override
-    public void add(Participant participant) {
+    public Participant add(Participant participant) {
         entityManager = singletone.getEntityManager();
         transaction = singletone.getTransaction();
         transaction.begin();
         try {
             entityManager.persist(participant);
             transaction.commit();
+            return participant;
         }catch (Exception e){
             transaction.rollback();
             e.printStackTrace();
+            return null;
         }
     }
 
