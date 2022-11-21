@@ -21,7 +21,11 @@ public class EntitySingletone {
     }
     public EntityManager getEntityManager(){
         if(entityManager == null) {
-            entityManagerFactory = Persistence.createEntityManagerFactory("pda_data");
+            if(isJUnitTest()){
+                entityManagerFactory = Persistence.createEntityManagerFactory("pda_dataTest");
+            }else{
+                entityManagerFactory = Persistence.createEntityManagerFactory("pda_data");
+            }
             entityManager = entityManagerFactory.createEntityManager();
         }
         return entityManager;
@@ -35,5 +39,13 @@ public class EntitySingletone {
             entityManager.close();
         }
         entityManager = null;
+    }
+    public boolean isJUnitTest() {
+        for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
+            if (element.getClassName().startsWith("org.junit.")) {
+                return true;
+            }
+        }
+        return false;
     }
 }

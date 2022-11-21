@@ -3,7 +3,6 @@ package next.pda.services.serviceImp;
 import next.pda.dao.GenericDao;
 import next.pda.dao.daoImp.ExerciceDaoImp;
 import next.pda.entity.Exercice;
-import next.pda.exeption.Ex;
 import next.pda.services.ExerciseService;
 import next.pda.services.GenericService;
 

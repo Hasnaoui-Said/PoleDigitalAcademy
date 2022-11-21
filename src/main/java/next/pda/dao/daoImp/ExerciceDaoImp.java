@@ -16,16 +16,18 @@ public class ExerciceDaoImp implements GenericDao<Exercice> {
     }
 
     @Override
-    public void add(Exercice exercice) {
+    public Exercice add(Exercice exercice) {
         entityManager = singletone.getEntityManager();
         transaction = singletone.getTransaction();
         transaction.begin();
         try{
             entityManager.persist(exercice);
             transaction.commit();
+            return exercice;
         }catch (Exception e){
             transaction.rollback();
             e.printStackTrace();
+            return null;
         }finally {
             singletone.closeEntityManager();
         }
@@ -40,13 +42,14 @@ public class ExerciceDaoImp implements GenericDao<Exercice> {
         try{
             entityManager.merge(exercice);
             transaction.commit();
+            return exercice;
         }catch (Exception e){
             transaction.rollback();
             e.printStackTrace();
+            return null;
         }finally {
             singletone.closeEntityManager();
         }
-        return exercice;
     }
 
     @Override

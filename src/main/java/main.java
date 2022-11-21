@@ -1,9 +1,11 @@
+import jakarta.persistence.Query;
 import next.pda.dao.AdminRepository;
 import next.pda.dao.daoImp.ActivityDaoImp;
 import next.pda.dao.daoImp.ParticipantDaoImp;
 import next.pda.entity.*;
 import next.pda.enu.Genre;
 import next.pda.enu.Roles;
+import next.pda.enu.TypesActivity;
 import next.pda.enu.TypesResponsable;
 import next.pda.services.ActivityService;
 import next.pda.services.AdminService;
@@ -15,6 +17,7 @@ import next.pda.single.EntitySingletone;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -37,14 +40,8 @@ public class main {
         ActivityService activityService = new ActivityServiceImp();
         ParticipantDaoImp participantDaoImp =new ParticipantDaoImp();
         ParticipantService participantService =new ParticipantServiceImp();
-        Activity activity1 = activityService.getOneById(1);
-        Participant participant1 = participantService.getOneById(9);
-        System.out.println(participant1.getActivities());
-        Date date_debut =new SimpleDateFormat("yyyy-MM-dd").parse("2022-11-9");
-        Date date_fin =new SimpleDateFormat("yyyy-MM-dd").parse("2022-11-18");
-        System.out.println(participantDaoImp.filter(0,date_debut,null,Genre.FEMALE));
-        System.out.println(date_fin.clone());
-
-
+        activity.setDescription("hahahahaha");
+        Activity result = activityService.add(activity,new ArrayList<>(),1);
+        System.out.println(result.getId());
     }
 }

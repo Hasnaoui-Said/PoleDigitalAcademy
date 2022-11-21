@@ -24,12 +24,21 @@ public class ActivityServiceImp implements ActivityService, GenericService<Activ
         activityDao.add(activity);
     }
     @Override
-    public void add(Activity activity, List<Integer> exercises, int idRes) {
-        for (Integer ex: exercises)
-            activity.getExercices().add(this.exerciseService.getOneById(ex));
-        if(idRes != -1)
-            activity.setResponsables(this.responsableService.getOneById(idRes));
-        activityDao.add(activity);
+    public Activity add(Activity activity, List<Integer> exercises, int idRes) {
+        try {
+            for (Integer ex: exercises)
+                activity.getExercices().add(this.exerciseService.getOneById(ex));
+            if(idRes != -1)
+                activity.setResponsables(this.responsableService.getOneById(idRes));
+            if(activityDao.add(activity)!=null){
+                return activity;
+            }else {
+                return null;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
     @Override
     public Activity update(Activity activity, List<Integer> exercises, int idRes) {

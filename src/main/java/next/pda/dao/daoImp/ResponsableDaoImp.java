@@ -15,16 +15,18 @@ public class ResponsableDaoImp implements GenericDao<Responsable> {
     }
 
     @Override
-    public void add(Responsable responsable) {
+    public Responsable add(Responsable responsable) {
         entityManager = singletone.getEntityManager();
         transaction = singletone.getTransaction();
         transaction.begin();
         try {
             entityManager.persist(responsable);
             transaction.commit();
+            return responsable;
         }catch (Exception e){
             transaction.rollback();
             e.printStackTrace();
+            return null;
         }finally {
             singletone.closeEntityManager();
         }
